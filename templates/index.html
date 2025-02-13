@@ -1,0 +1,24 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Username</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+    <div class="title">
+        <h1>Chatbot with Sentimental Analaysis</h1>
+    </div>
+    <div class="User">
+        <h2>Enter your Username</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username" required>
+        <button type="submit">Start Chat</button>
+    </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+Django
+django-livereload-server
+requests
+nltk
+scikit-learn
+python-docx
+python-dotenv

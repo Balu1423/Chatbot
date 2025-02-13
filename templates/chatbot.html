@@ -1,0 +1,72 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotionally Aware Chatbot</title>
+    <link rel="stylesheet" href="{% static 'css/chatbot.css' %}">
+    
+</head>
+<body>
+    <h1>Welcome {{username}}!</h1>
+     
+    <div id="chatbox"></div>
+    <div id="send">
+        <input type="text" id="user_message" placeholder="Type your message..."/>
+         <button id="send_button">Send</button>
+
+    </div>
+    <script>
+        // Function to get CSRF token from the cookie
+        function getCSRFToken() {
+            let csrfToken = null;
+            const cookies = document.cookie.split(';');
+            cookies.forEach(cookie => {
+                if (cookie.trim().startsWith('csrftoken=')) {
+                    csrfToken = cookie.trim().substring('csrftoken='.length);
+                }
+            });
+            return csrfToken;
+        }
+
+        const chatbox = document.getElementById('chatbox');
+        const send_button = document.getElementById('send_button');
+        const user_message_input = document.getElementById('user_message');
+
+        send_button.onclick = function() {
+            const user_message = user_message_input.value;
+            if (user_message.toLowerCase() === 'quit') {
+                window.location.href = '/';
+            }
+
+            // Display user message
+            chatbox.innerHTML += `<div class="user-msg">${user_message}</div>`;
+            user_message_input.value = '';
+
+            // Get CSRF token
+            const csrfToken = getCSRFToken();
+
+            // Send user message to the backend
+            fetch('/send_message/', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'message': user_message
+                }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': csrfToken  // Include CSRF token in the request header
+                },
+                credentials: 'same-origin'  // Ensure cookies (session) are sent with the request
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display bot response
+                chatbox.innerHTML += `<div class="bot-msg">${data.response}</div>`;
+                chatbox.scrollTop = chatbox.scrollHeight;
+            });
+        }
+    </script>
+</body>
+</html>
