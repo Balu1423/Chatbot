@@ -6,3 +6,12 @@ scikit-learn
 python-docx
 python-dotenv
 dj-database-url
+gunicorn==23.0.0
+idna==3.10
+mysqlclient==2.2.7
+packaging==24.2
+psycopg==3.2.3
+psycopg2==2.9.10
+psycopg2-binary==2.9.10
+requests==2.32.3
+sqlparse==0.5.3
