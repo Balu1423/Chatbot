@@ -92,7 +92,7 @@ WSGI_APPLICATION = 'Chatbot_Project.wsgi.application'
 # }
 DATABASES = {
     'default': {
-        'DB_URL': os.getenv('DB_URL')
+        'DB_URL': dj_database_url.parse(os.getenv('DB_URL'))
     }
 }
 
