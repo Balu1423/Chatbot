@@ -732,10 +732,10 @@ emotion_responses = {
 
 
 # Ensure that NLTK knows where to find the data (you can change this path as needed)
-nltk.data.path.append("nltk_data")
+# nltk.data.path.append("nltk_data")
 
 # Download the vader_lexicon if it hasn't been downloaded already
-nltk.download('vader_lexicon', download_dir="nltk_data")
+# nltk.download('vader_lexicon', download_dir="nltk_data")
 
 # Function to preprocess text: Tokenize, remove stopwords, and stem
 def preprocess_text(text):
